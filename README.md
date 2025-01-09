@@ -1,2 +1,3 @@
-# supereddington2024
-Super Eddington conference 2024
+# Breaking the limits III: Super Eddington 2024
+
+Here we are again
