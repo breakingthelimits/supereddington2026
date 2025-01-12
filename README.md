@@ -1,4 +1,4 @@
-# Breaking the limits III: Super Eddington 2024
+# Breaking the limits III: Super Eddington 2025
 
 Recent years have seen an increasing interest of the astronomical community
 on the topic of super-Eddington accretion on compact objects, which can
