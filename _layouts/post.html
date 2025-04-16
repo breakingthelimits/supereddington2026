@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    {% include head.html %}
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    {% include nav.html %}
+
+    <section id="default" class="container content-section text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 col-md-offset-2">
+                        <h2>{{ page.title }}</h2>
+                    </div>
+                    <div class="col-md-7 col-md-offset-2" style='text-align: left'>
+                        {{ content }}
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    {% include footer.html %}
+    {% include js.html %}
+    {% include google_analytics.html %}
+    </body>
+</html>

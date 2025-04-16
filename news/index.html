@@ -1,0 +1,13 @@
+---
+layout: default
+title: News
+excerpt_separator: <!--more-->
+---
+
+{% for post in site.posts %}
+    <div style="background-color: rgba(255,255,255,.2); padding:10px">
+    <a href="{{site.baseurl}}{{ post.url }}"><h2>{{ post.title }}</h2></a>
+      {{ post.excerpt }}
+  </div>
+
+ {% endfor %}
