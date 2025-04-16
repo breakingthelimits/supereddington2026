@@ -1,3 +1,29 @@
-theme: jekyll-theme-minimal
+# Site settings
 title: Breaking the limits 2025
-description: Workshop on Super Eddington accretion. Oristano, Italy, Sept. 15-19 2025.
+email: "supereddington2025 dot oaca at inaf.it"
+url: https://breakingthelimits.github.io/supereddington2025
+description: "Conference about Super-Eddington accretion. Arborea (OR), Italy, Sept. 15-19, 2025"
+
+
+baseurl: /supereddington2025
+
+# Color settings (hex-codes without the leading hash-tag)
+color:
+  primary-dark: '#000000'
+  links: '#219ab3'
+
+# Footer settings
+footer: Matteo Bachetti
+
+# Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
+#social:
+#  - title: twitter
+#    url: https://twitter.com/supereddy2018
+#  - title: facebook
+#    url: https://www.facebook.com/supereddington2018
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+excerpt_separator: <!--more-->
