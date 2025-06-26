@@ -10,7 +10,7 @@ To be updated
 
 
 <!---->
-<!--Click <a href="https://matteobachetti.github.io/supereddington2025/registration/"> here </a> for information.-->
+<!--Click <a href="https://matteobachetti.github.io/supereddington2026/registration/"> here </a> for information.-->
 <!---->
 
 

@@ -1,4 +1,4 @@
-Super Eddington 2025
+Super Eddington 2026
 ====================
 
-http://breakingthelimits.github.io/supereddington2025
+http://breakingthelimits.github.io/supereddington2026
