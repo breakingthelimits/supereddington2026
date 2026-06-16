@@ -93,18 +93,11 @@ for _, row in program_table.iterrows():
         </tr>"""
             html_template += "</tbody></table>"
         day = html.escape(get_value(row, "day", "Day") or str(row.dropna().iloc[0]).strip())
-        html_template += f"<br />\n<h2>{day}</h2>\n<table>\n"
+        html_template += f"<br />\n<h2>{day}</h2>\n"
         # html_template += "<thead><tr><th>Start</th><th>End</th><th>Speaker</th><th>Title</th><th>Abstract</th></tr></thead>\n"
-        html_template += "<tbody>\n"
-        in_table = True
+        in_table = False
         previous_end_time = "xx"
         continue
-
-    if not in_table:
-        html_template += "<table>"
-        # html_template += "<thead><tr><th>Start</th><th>End</th><th>Speaker</th><th>Title</th><th>Abstract</th></tr></thead>"
-        html_template += "<tbody>"
-        in_table = True
 
     start_time = html.escape(
         get_value(row, "start", "Start", "start_time", "Start time", "time_start")
@@ -115,11 +108,42 @@ for _, row in program_table.iterrows():
     abstract = html.escape(get_value(row, "abstract", "Abstract", "description", "Description"))
     abstract = abstract.replace(" \n", "\n")
     session = html.escape(get_value(row, "session", "Session"))
+    color = SESSION_COLORS.get(session, "#333333")
 
+    print(start_time, end_time, speaker)
     if speaker.strip() == "" and title.strip() == "" and abstract.strip() == "":
         continue
     if start_time.strip() == "":
         continue
+
+    if end_time.strip() == "":
+        if not in_table:
+            html_template += "<table>\n<tbody>\n"
+        color = SESSION_COLORS.get(start_time, "#333333")
+
+        new_row = f"""
+        <tr style="background-color: {color};">
+            <td></td>
+            <td>Chair: {speaker}</td>
+            <td style="background-color: {color};">{start_time}</td>
+        <td></td>
+        </tr>\n"""
+        html_template += new_row
+        # html_template += f"<br />\n<h3>{start_time}</h3>\n"
+        # html_template += f"<br />\n<p>Chair: {speaker}</p>\n"
+        in_table = True
+        continue
+
+    if not in_table:
+        html_template += "<table>\n<tbody>\n"
+        in_table = True
+        previous_end_time = "xx"
+
+        # html_template += "<table>"
+        # # html_template += "<thead><tr><th>Start</th><th>End</th><th>Speaker</th><th>Title</th><th>Abstract</th></tr></thead>"
+        # html_template += "<tbody>"
+        # in_table = True
+
     if previous_end_time.strip() != "xx" and start_time.strip() != previous_end_time.strip():
         warnings.warn("Time gap detected between {} and {}".format(previous_end_time, start_time))
 
@@ -130,7 +154,6 @@ for _, row in program_table.iterrows():
     if is_long_slot(start_time, end_time):
         speaker = f"<strong>{speaker}</strong>"
 
-    color = SESSION_COLORS.get(session, "#333333")
     if talk:
         new_row = f"""
         <tr style="background: transparent;">
