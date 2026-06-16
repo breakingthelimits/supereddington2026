@@ -55,6 +55,8 @@ SESSION_COLORS = {
     "LOC": "#222255",
 }
 
+NAME_CHANGES = {"Unsure": "Methods and instrumentation", "LOC": "Organization and logistics"}
+
 html_template = """<!-- <!doctype html>
 <html>
 <head>
@@ -165,6 +167,14 @@ if in_table:
         </tr>"""
     html_template += "</tbody></table>"
 
+for name, color in SESSION_COLORS.items():
+    display_name = NAME_CHANGES.get(name, name)
+    html_template += f"""
+    <div style="display: inline-block; margin-right: 1rem;">
+        <span style="display: inline-block; width: 1rem; height: 1rem; border:1px; background-color: {color}; border-color: white"></span>
+        <span>{display_name}</span>
+    </div>
+    """
 html_template += "</body></html>"
 
 with open("../_includes/program_table.html", "w", encoding="utf-8") as f:
