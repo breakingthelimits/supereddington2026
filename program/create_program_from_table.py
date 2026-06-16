@@ -156,6 +156,13 @@ for _, row in program_table.iterrows():
     html_template += new_row
 
 if in_table:
+    html_template += f"""
+        <tr style="background-color: #333333;">
+            <td style="background-color: #333333;">{previous_end_time}</td>
+            <td><strong>End of conference</strong></td>
+            <td></td>
+            <td></td>
+        </tr>"""
     html_template += "</tbody></table>"
 
 html_template += "</body></html>"
