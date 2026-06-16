@@ -1,6 +1,7 @@
 import codecs
 import html
 from datetime import datetime
+import warnings
 import pandas as pd
 
 program_table = pd.read_csv("program_table.csv")
@@ -77,15 +78,24 @@ html_template = """<!-- <!doctype html>
 
 in_table = False
 
+previous_end_time = "xx"
 for _, row in program_table.iterrows():
     if is_day_row(row):
         if in_table:
+            html_template += f"""
+        <tr style="background-color: #333333;">
+            <td style="background-color: #333333;">{previous_end_time}</td>
+            <td><strong>End of day</strong></td>
+            <td></td>
+            <td></td>
+        </tr>"""
             html_template += "</tbody></table>"
         day = html.escape(get_value(row, "day", "Day") or str(row.dropna().iloc[0]).strip())
         html_template += f"<br />\n<h2>{day}</h2>\n<table>\n"
         # html_template += "<thead><tr><th>Start</th><th>End</th><th>Speaker</th><th>Title</th><th>Abstract</th></tr></thead>\n"
         html_template += "<tbody>\n"
         in_table = True
+        previous_end_time = "xx"
         continue
 
     if not in_table:
@@ -101,13 +111,19 @@ for _, row in program_table.iterrows():
     speaker = html.escape(get_value(row, "speaker", "Speaker"))
     title = html.escape(get_value(row, "talk title", "talk_title", "title", "Title"))
     abstract = html.escape(get_value(row, "abstract", "Abstract", "description", "Description"))
+    abstract = abstract.replace(" \n", "\n")
     session = html.escape(get_value(row, "session", "Session"))
 
     if speaker.strip() == "" and title.strip() == "" and abstract.strip() == "":
         continue
     if start_time.strip() == "":
         continue
+    if previous_end_time.strip() != "xx" and start_time.strip() != previous_end_time.strip():
+        warnings.warn("Time gap detected between {} and {}".format(previous_end_time, start_time))
 
+    print(f"Processing: {start_time} - {end_time}, Speaker: {speaker}")
+
+    previous_end_time = end_time
     talk = title.strip() != "" or speaker.strip() == "Discussion"
     if is_long_slot(start_time, end_time):
         speaker = f"<strong>{speaker}</strong>"
@@ -147,5 +163,5 @@ html_template += "</body></html>"
 with open("../_includes/program_table.html", "w", encoding="utf-8") as f:
     f.write(html_template)
 
-with codecs.open("../_includes/program_table.html", "r", "utf-8") as file:
-    print(file.read())
+# with codecs.open("../_includes/program_table.html", "r", "utf-8") as file:
+#     print(file.read())
