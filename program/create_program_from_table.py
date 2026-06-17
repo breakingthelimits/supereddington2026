@@ -55,7 +55,10 @@ SESSION_COLORS = {
     "LOC": "#222255",
 }
 
-NAME_CHANGES = {"Unsure": "Methods and instrumentation", "LOC": "Organization and logistics"}
+NAME_CHANGES = {
+    "Unsure": "General Physics, methods, instrumentation",
+    "LOC": "Organization and logistics",
+}
 
 html_template = """<!-- <!doctype html>
 <html>
