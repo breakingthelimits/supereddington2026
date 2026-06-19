@@ -112,6 +112,8 @@ for _, row in program_table.iterrows():
     abstract = abstract.replace(" \n", "\n")
     session = html.escape(get_value(row, "session", "Session"))
     color = SESSION_COLORS.get(session, "#333333")
+    info = html.escape(get_value(row, "notes", "Notes"))
+    paid = html.escape(get_value(row, "paid", "Paid"))
 
     print(start_time, end_time, speaker)
     if speaker.strip() == "" and title.strip() == "" and abstract.strip() == "":
@@ -158,6 +160,8 @@ for _, row in program_table.iterrows():
         speaker = f"<strong>{speaker}</strong>"
 
     if talk:
+        if "remote" in info.lower() or "remote" in paid.lower():
+            speaker += " (remote)"
         new_row = f"""
         <tr style="background: transparent;">
             <td style="background-color: {color};">{start_time}</td>
