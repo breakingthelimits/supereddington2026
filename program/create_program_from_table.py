@@ -155,7 +155,7 @@ for _, row in program_table.iterrows():
     print(f"Processing: {start_time} - {end_time}, Speaker: {speaker}")
 
     previous_end_time = end_time
-    talk = title.strip() != "" or speaker.strip() == "Discussion"
+    talk = title.strip() != "" or "discussion" in speaker.strip().lower()
     if is_long_slot(start_time, end_time):
         speaker = f"<strong>{speaker}</strong>"
 
